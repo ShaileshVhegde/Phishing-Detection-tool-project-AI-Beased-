@@ -129,7 +129,37 @@
     </script>
 </head>
 <body>
+<div class="navbar">
+    <h1>ThreatGuard</h1>
+</div>
+<div class="container">
+    <h2>Scam Files</h2>
+    <form action="/scam/" method="post" enctype="multipart/form-data">
+        <label for="File">Upload a file(PDF/TXT)only</label>
+        <input type="file" name="file" required>
+        <button type="submit">Analyze</button>
+        <div id="urlSpinner" class="spinner"></div>
+    </form>
+    {% if message %}
+    <h3>Result:</h3>
+    <p>{{ message }}</p>
+    {% endif %}
+    <h2><i class="fas fa-link"></i>URL Threat Detector</h2>
+    <form method="post" action="/predict" onsubmit="showSpinner('urlFrom','urlSpinner')">
+        <label for="url">Enter Url:</label>
+        <input type="text" name="url" required>
+        <button type="submit"><i class="fas fa-search"></i>Classify</button>
+        <div id="urlSpinner" class="spinner"></div>
 
-    
-</body>
+    </form>
+    {% if predicted_class %}
+    <div class="result-box {{ predicted_class.lower() }}">
+        <p><strong>URL:</strong>{{ input_url }}</p>
+        <p><strong>Predicted Class: </strong>{{ predicted_class }}</p>
+    {% endif %}
+    </div>
+
+</div>
+</body> 
+
 </html>
